@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Role {
+  id: ID!
+  title: String!
+  users: [User!]!
+}
+
+type Lesson {
+  id: ID!
+  title: String!
+  course: Course!
+}
+
+type Course {
+  id: ID!
+  title: String!
+  lessons: [Lesson!]!
+  user: User!
+  students: [User!]!
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+  courses: [Course!]!
+  enrolls: [Course!]!
+}
+
+type AuthUser {
+  user: User!
+  token: String!
+}
+
+type Query {
+  GetUser(id: String!): User!
+  GetRole(id: String!): Role!
+  GetRoles: [Role!]!
+  GetCourse(id: String!): Course!
+  GetCourses: [Course!]!
+  lesson(id: String!): Lesson!
+}
+
+type Mutation {
+  NewUser(user: CreateUserInput!): User!
+  Login(user: LoginUserInput!): AuthUser!
+  AuthUser: User!
+  NewRole(role: CreateRoleInput!): Role!
+  NewCourse(createCourseInput: CreateCourseInput!): Course!
+  Enroll(id: String!): Course!
+  DeleteCourse(id: String!): Course!
+  UpdateCourse(id: String!, updateCourseInput: UpdateCourseInput!): Course!
+  NewLesson(createLessonInput: CreateLessonInput!, courseId: String!, mediaId: String!): Lesson!
+  DeleteLesson(id: String!): Lesson!
+  UpdateLesson(id: String!, updateLessonInput: UpdateLessonInput!): Lesson!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  role: ID!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateRoleInput {
+  title: String!
+}
+
+input CreateCourseInput {
+  title: String!
+}
+
+input UpdateCourseInput {
+  title: String!
+}
+
+input CreateLessonInput {
+  title: String!
+}
+
+input UpdateLessonInput {
+  title: String!
+}
+
+type Subscription {
+  lessonAdded: Lesson!
+}
